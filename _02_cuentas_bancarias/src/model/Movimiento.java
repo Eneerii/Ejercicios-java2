@@ -11,6 +11,13 @@ Parte 3:
 Se creará una nueva clase que registre los movimientos realizados en la cuenta (ingreso y extracción).
 Cada movimiento se caracteriza por una cantidad y un tipo (ingreso o extracción).
 Incorporará un nuevo método que devuelva los movimientos registrados
+Parte 4:
+Hacer la capa de presentación de la aplicación banco.
+Al iniciar el programa, se solicita al usuario la introducción de un saldo inicial y un límite. A partir de ahí a parecerá el siguiente menú:
+1. Ingresar dinero
+2. Extraer dinero
+3. Consultar saldo y movimientos
+4. Salir
  */
 public class Movimiento {
 	private double cantidad;
