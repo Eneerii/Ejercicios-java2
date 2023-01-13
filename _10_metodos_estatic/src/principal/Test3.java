@@ -1,6 +1,5 @@
 package principal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //Crear una lista de números con los valores 7, 15 y 9
