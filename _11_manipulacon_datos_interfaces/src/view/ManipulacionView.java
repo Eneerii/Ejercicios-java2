@@ -1,6 +1,8 @@
 package view;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.List;
-import java.util.function.Predicate;
 
 import service.ManipulacionService;
 
@@ -42,7 +44,27 @@ public class ManipulacionView {
 		System.out.println("Suma pares: "+service.sumaPorCriterio(nums, t->t%2==0));
 		System.out.println("Suma positivos: "+service.sumaPorCriterio(nums,i->i>0));
 		
+		//imprime los numeros de la lista:
 		
+		service.procesaLista(nums, x-> System.out.println(x));
+		
+		//imprime los pares de la lista
+		service.procederLista(nums, x->System.out.println(x), x->x%2==0);
+		
+		//guarda en fichero los positivos de la lista
+		
+		service.procederLista(nums, x->{
+			String ruta="c:\\temp\\lambda.txt";
+			try(FileOutputStream fos=new FileOutputStream(ruta,true);
+					PrintStream out=new PrintStream(fos);){
+				out.println(x);
+			}
+				catch(IOException ex) {
+					ex.printStackTrace();
+		}
+		},
+		 x->x>0);
+
 	}
 
 }
