@@ -2,7 +2,9 @@ package view;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 import service.ManipulacionService;
 
@@ -64,7 +66,29 @@ public class ManipulacionView {
 		}
 		},
 		 x->x>0);
-
+		//suma de los cuadrados de la lista
+		System.out.println(service.sumaTrasformados(nums,n->n*n));
+		
+		//suma de los cuadrados de las raices
+		UnaryOperator<Integer> f1=a->a*a;
+		UnaryOperator<Integer> f2= a->(int)Math.pow(a,  1/3);
+		System.out.println(service.sumaTrasformados(nums,f1.andThen(f2)));
+		
+		//suma de los elementos de la lista más un número aleatorio(entre1 y 100)
+		System.out.println(service.sumaListaConValor(nums, ()->(int)(Math.random()*100+1)));
+		
+		List<String> cadenas=List.of("salida", "armario", "luna", "amarillo");
+		//total de vocales de las que empiezan por a
+		System.out.println(service.contarLetras(cadenas, c->{
+			int vocales=0;
+			for(int i=0;i<c.length();i++) {
+				switch(c.charAt(i)) {
+				case 'a','e','i','o','u':
+					vocales++;
+				}
+			}
+			return vocales;
+		}, c->c.startsWith("a")));
 	}
 
 }

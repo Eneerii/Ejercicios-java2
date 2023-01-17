@@ -1,10 +1,12 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class ManipulacionService {
 	public int sumaPares (List<Integer> numeros) {
@@ -71,5 +73,28 @@ public class ManipulacionService {
 		}
 		return suma;
 	}
+	//método que recibe una lista y devuelve la suma de todos los elementos, a la que le añadimos un valor extraido de un fichero.
+	//método que recibe una lista y devuelve la suma de todos los elementos, a la que le añadimos un número leído desde un puerto externo.
+	public int sumaListaConValor (Collection<Integer> numeros, Supplier<Integer> data){
+        int suma=0;
+        for(Integer n:numeros){
+        	suma+=n;
+        }
+        return suma+data.get();
+	}
 	
+	//Método que recibe una lista de cadenas de caracteres y devuelve el total de las vocales de aquellas que comiencen por "a"
+	//método que recibe un alista de cadena de caracteres y devuelve el total de caracteres de aquellas que tengan más de 5 letras
+	
+	public int contarLetras (Collection<String> palabras, Function<String, Integer> fun, Predicate<String> cond) {
+		int total=0;
+		 for(String cad:palabras) {
+			 if (cond.test(cad)) {
+				 total+=fun.apply(cad);
+			 }
+		 }
+		 return total;
+	}
 }
+	
+	
