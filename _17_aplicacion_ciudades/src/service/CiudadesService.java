@@ -1,6 +1,8 @@
 package service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import model.Ciudad;
 
@@ -59,7 +61,25 @@ public class CiudadesService {
 					.average() //OptionalFouble
 					.orElse(0);
 		}
+		//devuelve la lista de ciudades que pertenecen a un determinado país
+		public List<Ciudad> ciudadesPais(String pais) {
+				return ciudades.stream()
+						.filter(c->c.getPais().equals(pais)) //Stream<Ciudad>
+						.collect(Collectors.toList());
+		}
+		//devuelve todas las ciudades agrupadas por país
 		
-	}
+		public Map<String,List<Ciudad>> ciudadesPorPais(){
+			return ciudades.stream()
+					.collect(Collectors.groupingBy(c->c.getPais()));			
+		}
+		
+		//devuelve el total de habitantes de un determinado país
+		
+		public int habitantesPorPais(String pais){
+			return ciudades.stream()
+					.filter(c->c.getPais().equals(pais)) //Stream<Ciudad
+				   .collect(Collectors.summingInt(n->n.getHabitantes()));
+		}
 }
 
