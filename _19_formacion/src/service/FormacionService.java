@@ -73,5 +73,37 @@ public class FormacionService {
 			   .toList(); //igual que el anterior, pero desde java 16
 		
 	}
+	
+	//lista de nombres de cursos
+	public List<String> cursos(){
+		return cursos.stream()
+				.map(c->c.denominacion()) //Stream<String>
+				.toList();
+				
+	}
+	
+	//nota media del curso de una determinada denominación
+	
+	public double notaMediaPorCurso (String denominacion) {
+		return cursos.stream()
+				    .filter(c->c.denominacion().equals(denominacion))//Stream<Curso>
+			        .flatMap(c->c.matriculas().stream()) //Stream<Alumno>
+			        .collect(Collectors.averagingDouble(a->a.nota()));
+		
+	}
+	
+	//lista de alumnos de un curso de un terminada denominación
+	
+	public List<Alumno> alumnosPorCurso (String curso){
+		return cursos.stream()
+				.filter(c->c.denominacion().equals(curso))
+				.flatMap(c->c.matriculas().stream())
+				.toList();
+		/*return cursos.stream()
+				.filter(c->c.denominacion().equals(denominacion))
+				.findFirst()
+				.get()
+				.matriculas();*/
+	}
 
 }
