@@ -57,7 +57,7 @@ public class CiudadesService {
 		public double temperaturaMediaCiudadesPais (String pais) {
 			return ciudades.stream()
 					.filter(c->c.getPais().equals(pais)) //(Stream<Ciudad>
-					.mapToDouble(c->c.getTemperaturaMedia())//DoubleStream
+					.mapToDouble(Ciudad::getTemperaturaMedia)//DoubleStream
 					.average() //OptionalFouble
 					.orElse(0);
 		}
@@ -71,7 +71,7 @@ public class CiudadesService {
 		
 		public Map<String,List<Ciudad>> ciudadesPorPais(){
 			return ciudades.stream()
-					.collect(Collectors.groupingBy(c->c.getPais()));			
+					.collect(Collectors.groupingBy(Ciudad::getPais));			
 		}
 		
 		//devuelve el total de habitantes de un determinado país
@@ -79,7 +79,7 @@ public class CiudadesService {
 		public int habitantesPorPais(String pais){
 			return ciudades.stream()
 					.filter(c->c.getPais().equals(pais)) //Stream<Ciudad
-				   .collect(Collectors.summingInt(n->n.getHabitantes()));
+				   .collect(Collectors.summingInt(Ciudad::getHabitantes));
 		}
 }
 
