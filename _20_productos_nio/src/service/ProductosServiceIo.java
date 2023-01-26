@@ -1,14 +1,15 @@
-
 package service;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductosServiceIo {
-	private String ruta="c:\\ficheros\\productos.txt";
+	private String ruta="C:\\Irene Manana\\fichero\\productos.txt";
 	//método que devuelve la lista de productos
 	public List<String> listaProductos() {
 		List<String> resultado=new ArrayList<>();
@@ -23,7 +24,7 @@ public class ProductosServiceIo {
 		}
 		return resultado;
 	}
-	
+
 	//método que a partir del numbre de un producto, nos dice
 	//si está o no almacenado
 	public boolean existeProducto(String producto) {
@@ -40,5 +41,27 @@ public class ProductosServiceIo {
 		}
 		return false;
 	}
-	
+	//método que recibe un producto y lo guarda
+
+	public void grabarProducto(String producto) {
+		try(FileOutputStream fo=new FileOutputStream(ruta, true);
+				PrintStream out=new PrintStream(fo);){
+			out.println(producto);			
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+	//método que recibe una lista de productos y la guarda
+	public void grabarProductos(List<String> productos) {
+		try(FileOutputStream fo=new FileOutputStream(ruta,true);
+				PrintStream out=new PrintStream(fo);){
+			for(String p:productos) {
+				out.println(p);
+			}
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+	}
 }
+
+	
